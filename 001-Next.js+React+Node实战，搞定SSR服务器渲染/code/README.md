@@ -1,34 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 技术选型
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```
+1、主要技术栈：next.js + React + node
+2、学习目标：通过 next.js 实战 SSR 项目，并部署
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 搭建
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 项目初始化
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npx create-next-app@latest --typescript
+# or
+yarn create next-app --typescript
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 配置 Vscode + ESLint + StyleLint + Prettier（都强烈要求配置）
 
-## Learn More
+#### ESLint：主要用于代码校验，能够在开发阶段发现很多潜在的问题
 
-To learn more about Next.js, take a look at the following resources:
+- 1、vscode 安装 eslint 插件
+- 2、.eslintrc.json 项目里的配置文件
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+{
+  "extends": ["next/core-web-vitals", "eslint: recommended"]
+}
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+#### StyleList：主要用于 CSS 样式进行代码格式化
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 1、vscode 安装 StyleList 插件
+- 2、项目安装
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+yarn add sass stylelint stylelint-config-standard-scss -D
+```
+
+- 3、.stylelintrc.json
+
+#### Prettier：主要用于代码格式化，可以让大家的风格趋于统一，方便后续维护迭代
+
+- 1、vscode 安装 Prettier 插件
+- 2、.prettierrc.js
+
+#### Vscode：安装对应的插件并开启保存自动格式化
+
+```
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  },
+  "tabnine.experimentalAutoImports": true
+}
+```
+
+### 搭建 Mock Server
+
+在真实的工作场景中，前后端的工作基本都是并行开发的，一般都是相互约定好接口 API 后，分别进入开发。所以，根据接口 API mock 数据，方便我们开发
+
+#### Mock 数据的三种常见情景
+
+- 直接写死数据，使用 settimeout 模拟接口延时
+- 本地起一个 node 服务，配合 mock.js 生成接口假数据，自己实现接口 API
+- 使用已经搭建好的在线 Mock 服务，如：Postman、EasyMock
